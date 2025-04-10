@@ -26,6 +26,7 @@ const jobSchema = new mongoose.Schema({
   secteurActivite: String,
   secteurActiviteLibelle: String,
   urlOrigine: String,
+  pays: String,
 });
 
 module.exports = mongoose.model('Job', jobSchema);

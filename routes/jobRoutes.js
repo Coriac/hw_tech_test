@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const jobController = require('../controllers/jobController');
+const {
+  fetchAndStoreJobs,
+  jobsStats,
+} = require('../controllers/jobController');
 
-router.get('/fetch', jobController.fetchAndStoreJobs);
+router.get('/fetch', fetchAndStoreJobs);
+router.get('/stats', jobsStats);
 
 module.exports = router;

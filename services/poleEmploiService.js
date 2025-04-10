@@ -111,7 +111,7 @@ async function* fetchOffersForCommunes(inseeCommunes) {
       accessToken = await getAccessToken();
     }
 
-    const foundIds = [];
+    // const foundIds = []; // DUPLICATE CHECK
 
     for (const inseeCommune of inseeCommunes) {
       const minCreationDate = await lastJobDate(inseeCommune);
@@ -135,15 +135,16 @@ async function* fetchOffersForCommunes(inseeCommunes) {
           `poleEmploiService : ✅ Found ${response?.data?.resultats.length} offers !`
         );
 
-        response?.data?.resultats.forEach(
-          (result) =>
-            foundIds.push({
-              id: result.id,
-              intitule: result.intitule,
-              commune: result?.lieuTravail?.commune,
-            }),
-          foundIds
-        );
+        // DUPLICATE CHECK
+        // response?.data?.resultats.forEach(
+        //   (result) =>
+        //     foundIds.push({
+        //       id: result.id,
+        //       intitule: result.intitule,
+        //       commune: result?.lieuTravail?.commune,
+        //     }),
+        //   foundIds
+        // );
 
         if (response?.data?.resultats) {
           yield response?.data?.resultats;
@@ -163,7 +164,7 @@ async function* fetchOffersForCommunes(inseeCommunes) {
         }
       } while (response?.status === 206);
     }
-    console.log(`foundIds ${JSON.stringify(foundIds)}`);
+    // console.log(`foundIds ${JSON.stringify(foundIds)}`); // DUPLICATE CHECK
 
     console.log(`poleEmploiService : ✅ Reached last page !`);
   } catch (error) {

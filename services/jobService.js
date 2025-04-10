@@ -14,7 +14,7 @@ async function lastJobDate(communeInsee) {
 
 // Fonction pour enregistrer les offres sans doublon
 async function storeOffers(offers) {
-  console.log(`storeOffers: ${offers.length}`);
+  // console.log(`storeOffers: ${offers.length}`);
   let newOffersCount = 0;
   for (const job of offers) {
     const exists = await Job.findOne({ externalId: job.id });
@@ -45,6 +45,7 @@ async function storeOffers(offers) {
         secteurActivite: job?.secteurActivite,
         secteurActiviteLibelle: job?.secteurActiviteLibelle,
         urlOrigine: job?.origineOffre?.urlOrigine,
+        pays: 'France',
       });
       await newJob.save();
       newOffersCount++;
@@ -59,16 +60,23 @@ async function generateStats() {
   const totalJobs = await Job.countDocuments();
 
   const contractStats = await Job.aggregate([
-    { $group: { _id: '$contractType', count: { $sum: 1 } } },
+    { $group: { _id: '$typeContrat', count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
   ]);
 
   const companyStats = await Job.aggregate([
-    { $group: { _id: '$company', count: { $sum: 1 } } },
+    { $group: { _id: '$entreprise', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
   ]);
 
   const countryStats = await Job.aggregate([
-    { $group: { _id: '$country', count: { $sum: 1 } } },
+    { $group: { _id: '$pays', count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
+  ]);
+
+  const communeStats = await Job.aggregate([
+    { $group: { _id: '$communeInsee', count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
   ]);
 
   return {
@@ -76,6 +84,7 @@ async function generateStats() {
     contractStats,
     companyStats,
     countryStats,
+    communeStats,
   };
 }
 

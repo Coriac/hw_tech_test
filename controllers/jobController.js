@@ -1,4 +1,4 @@
-const { storeOffers } = require('../services/jobService');
+const { storeOffers, generateStats } = require('../services/jobService');
 const poleEmploiService = require('../services/poleEmploiService');
 const { INSEE_COMMUNES } = require('../config/constants');
 
@@ -37,6 +37,18 @@ async function fetchAndStoreJobs(req, res) {
   }
 }
 
+async function jobsStats(req, res) {
+  try {
+    res.status(200).json(await generateStats());
+  } catch (error) {
+    res.status(500).json({
+      message: 'Erreur lors de la récupération des offres',
+      error: error.message,
+    });
+  }
+}
+
 module.exports = {
   fetchAndStoreJobs,
+  jobsStats,
 };
