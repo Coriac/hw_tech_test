@@ -3,8 +3,9 @@ const poleEmploiService = require('../services/poleEmploiService');
 const { INSEE_COMMUNES } = require('../config/constants');
 
 /**
- * Récupère les offres d'emploi pour Paris, Rennes et Bordeaux
- * en utilisant leur code INSEE respectif.
+ * Controller: Retrieves and saves job offers for multiple municipalities.
+ * @param {Object} req - HTTP request (Express) : empty args
+ * @param {Object} res - HTTP response (Express)
  */
 async function fetchAndStoreJobs(req, res) {
   try {
@@ -37,6 +38,11 @@ async function fetchAndStoreJobs(req, res) {
   }
 }
 
+/**
+ * Controller: Retrieves aggregated statistics on job offers.
+ * @param {Object} req - HTTP request (Express) : empty args
+ * @param {Object} res - HTTP response (Express)
+ */
 async function jobsStats(req, res) {
   try {
     res.status(200).json(await generateStats());

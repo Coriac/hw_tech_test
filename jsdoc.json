@@ -1,0 +1,12 @@
+{
+  "source": {
+    "include": [
+      "services/jobService.js",
+      "controllers/jobController.js",
+      "services/poleEmploiService.js"
+    ]
+  },
+  "opts": {
+    "destination": "./docs"
+  }
+}

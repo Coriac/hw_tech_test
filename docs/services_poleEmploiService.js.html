@@ -1,4 +1,32 @@
-require('dotenv').config();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/poleEmploiService.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/poleEmploiService.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>require('dotenv').config();
 const axios = require('axios');
 const { lastJobDate } = require('./jobService');
 const { ftDateFormat } = require('../utils/dateFormat');
@@ -8,16 +36,16 @@ const { TOKEN_URL, SEARCH_OFFRE_URL, SCOPE } = require('../config/constants');
 let accessToken = null;
 
 /**
- * Retrieves a new access token if the current one is expired.
- * @returns {Promise<Object>} The Pôle Emploi API response enriched with an expiration date.
+ * Récupère l'access token si celui-ci est expiré
+ * @returns {Promise&lt;Object>} La réponse de l'API PoleEmploi enrichie d'une date d'expiration
  */
 async function getAccessToken() {
   try {
     // Token non expiré
     if (
-      accessToken &&
-      accessToken.expiration_date &&
-      Date.now() < accessToken.expiration_date
+      accessToken &amp;&amp;
+      accessToken.expiration_date &amp;&amp;
+      Date.now() &lt; accessToken.expiration_date
     ) {
       return accessToken;
     }
@@ -59,13 +87,13 @@ async function getAccessToken() {
 }
 
 /**
- * Calls the Pôle Emploi API with specific filters.
+ * Appelle l'API Pole Emploi avec certains filtres
  * @param {Object} options
- * @param {string} options.inseeCommune - Filter job offers by commune (INSEE code)
- * @param {number} options.page - Pagination page number
- * @param {Date} options.minCreationDate - Minimum creation date of job offers
- * @param {Date} options.maxCreationDate - Maximum creation date of job offers
- * @returns {Promise<Generator<any[], any, any>>} The Axios response
+ * @param {string} options.inseeCommune - Filtre de offres d'emploi par commmune
+ * @param {number} options.page - Page de la pagination
+ * @param {date} options.minCreationDate - Date minimum des offres
+ * @param {date} options.maxCreationDate - Date maximum des offres
+ * @returns {Promise&lt;Generator&lt;any[], any, any>>} La réponse Axios
  */
 async function getOffers({
   inseeCommune,
@@ -112,9 +140,9 @@ async function getOffers({
 }
 
 /**
- * Fetches all job offers for a specific commune.
- * @param {string} inseeCommune - Filters job offers by commune (INSEE code).
- * @returns {AsyncGenerator<Object[]>} Job offers returned by the Pôle Emploi job search API.
+ * Récupère toutes les offres d'emplois pour une commune
+ * @param {string} inseeCommune - Filtre de offres d'emploi par commmune
+ * @returns {AsyncGenerator&lt;Object[]>} Les offres renvoyées par l'API Pole Emploi de recherche d'offres
  */
 async function* fetchOffersForCommunes(inseeCommunes) {
   try {
@@ -125,6 +153,8 @@ async function* fetchOffersForCommunes(inseeCommunes) {
     ) {
       accessToken = await getAccessToken();
     }
+
+    // const foundIds = []; // DUPLICATE CHECK
 
     for (const inseeCommune of inseeCommunes) {
       const minCreationDate = await lastJobDate(inseeCommune);
@@ -148,6 +178,17 @@ async function* fetchOffersForCommunes(inseeCommunes) {
           `poleEmploiService : ✅ Found ${response?.data?.resultats.length} offers !`
         );
 
+        // DUPLICATE CHECK
+        // response?.data?.resultats.forEach(
+        //   (result) =>
+        //     foundIds.push({
+        //       id: result.id,
+        //       intitule: result.intitule,
+        //       commune: result?.lieuTravail?.commune,
+        //     }),
+        //   foundIds
+        // );
+
         if (response?.data?.resultats) {
           yield response?.data?.resultats;
         }
@@ -157,7 +198,6 @@ async function* fetchOffersForCommunes(inseeCommunes) {
             response?.data?.resultats.length - 1
           ].dateCreation
         );
-
         if (maxCreationDate === newMaxCreationDate) {
           console.log(`⚠️ ${JSON.stringify(response?.data?.resultats)}`);
           // Troubleshooting : sometimes the API gives us the exact same creationDate as last job
@@ -167,6 +207,8 @@ async function* fetchOffersForCommunes(inseeCommunes) {
         }
       } while (response?.status === 206);
     }
+    // console.log(`foundIds ${JSON.stringify(foundIds)}`); // DUPLICATE CHECK
+
     console.log(`poleEmploiService : ✅ Reached last page !`);
   } catch (error) {
     if (error.response) {
@@ -184,3 +226,26 @@ async function* fetchOffersForCommunes(inseeCommunes) {
 module.exports = {
   fetchOffersForCommunes,
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#fetchAndStoreJobs">fetchAndStoreJobs</a></li><li><a href="global.html#fetchOffersForCommunes">fetchOffersForCommunes</a></li><li><a href="global.html#generateStats">generateStats</a></li><li><a href="global.html#getAccessToken">getAccessToken</a></li><li><a href="global.html#getOffers">getOffers</a></li><li><a href="global.html#jobsStats">jobsStats</a></li><li><a href="global.html#lastJobDate">lastJobDate</a></li><li><a href="global.html#storeOffers">storeOffers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Apr 11 2025 15:02:50 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
