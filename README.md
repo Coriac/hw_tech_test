@@ -1,3 +1,16 @@
+# Documentation
+
+[Documentation](./docs/index.html)
+
+# Installation
+
+`docker compose up`
+
+# Points d'API
+
+- GET [localhost:3000/jobs/fetch](localhost:3000/jobs/fetch)
+- GET [localhost:3000/jobs/stats](localhost:3000/jobs/stats)
+
 # Choix effectués
 
 ## Utilisation de frameworks et packages très communs pour me concentrer sur la partie logique du code
@@ -37,16 +50,3 @@ Par manque de temps, je n'ai pas pu faire les étapes suivantes:
 - Gestion de queue et worker (je suis curieux d'essayer bullMQ)
 - Call du point d'API des codes INSEE
 - Front avec graphiques (un petit vuejs avec des charts)
-
-# Documentation
-
-[Documentation](./docs/index.html)
-
-# Installation
-
-`docker compose up`
-
-# Points d'API
-
-- GET [localhost:3000/jobs/fetch](localhost:3000/jobs/fetch)
-- GET [localhost:3000/jobs/stats](localhost:3000/jobs/stats)
