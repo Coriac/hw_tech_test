@@ -8,10 +8,10 @@ const Job = require('../models/jobModel');
  */
 async function lastJobDate(communeInsee) {
   try {
-    // Recherche le job le plus récent (par dateActualisation) pour la commune spécifiée
+    // Looking for the most recent job (sadly not dateActualisation as the API doesn't permit to filter with this parameter) for a specific commune
     const latestJob = await Job.findOne({ communeInsee: communeInsee })
-      .sort({ dateCreation: -1 }) // Trie par dateActualisation décroissante
-      .select('dateCreation') // Sélectionne uniquement la dateActualisation
+      .sort({ dateCreation: -1 })
+      .select('dateCreation')
       .exec();
 
     return new Date(latestJob ? latestJob.dateCreation : 0);
@@ -61,7 +61,7 @@ async function storeOffers(offers) {
     }
   }
   console.log(`jobService        : ✅ Saved ${newOffersCount} new offers !`);
-  return newOffersCount; // Retourner le nombre d’offres ajoutées
+  return newOffersCount;
 }
 
 /**

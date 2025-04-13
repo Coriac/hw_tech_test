@@ -13,7 +13,7 @@ let accessToken = null;
  */
 async function getAccessToken() {
   try {
-    // Token non expiré
+    // Token still available
     if (
       accessToken &&
       accessToken.expiration_date &&
