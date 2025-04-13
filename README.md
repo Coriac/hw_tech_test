@@ -2,7 +2,9 @@
 
 [Documentation](./docs/index.html)
 
-# Installation
+# Installation et exécution
+
+Docker nécessaire pour l'installation et exécution
 
 `docker compose up`
 
@@ -42,7 +44,7 @@ Je n'ai pas eu le temps de faire spécifiquement la partie parisienne en utilisa
 
 Par manque de temps, je n'ai pas pu faire les étapes suivantes:
 
-- Tests
+- Tests unitaires
 - Point d'API "flush" (pour vider simplement la base)
 - Logs avec niveau de log (potentiellement Winston que j'aimerai découvrir)
 - Gestion des erreurs plus fine
