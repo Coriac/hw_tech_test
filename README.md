@@ -1,7 +1,3 @@
-# Documentation
-
-[Documentation](./docs/index.html)
-
 # Installation et exécution
 
 Docker nécessaire pour l'installation et exécution
@@ -52,3 +48,7 @@ Par manque de temps, je n'ai pas pu faire les étapes suivantes:
 - Gestion de queue et worker (je suis curieux d'essayer bullMQ)
 - Call du point d'API des codes INSEE
 - Front avec graphiques (un petit vuejs avec des charts)
+
+# Documentation
+
+[Documentation locale](./docs/index.html)
